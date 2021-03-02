@@ -11,7 +11,6 @@ class Note:
 
     def __init__(self, memo, tags=''):
         """Init with a memo and an optinal tag(s)"""
-
         self.memo = memo
         self.tags = tags
         self.creation_date = datetime.date.today()
@@ -20,12 +19,15 @@ class Note:
         self.id = last_id
 
     def match(self, filter):
-        """If text from filter is found in memo then return true"""
+        '''Determine if this note matches the filter
+        text. Return True if it matches, False otherwise.
+        Search is case sensitive and matches both text and
+        tags.'''
         return filter in self.memo or filter in self.tags
 
-
 class Notebook:
-    """Holds a collection of notes objects"""
+    '''Represent a collection of notes that can be tagged,
+    modified, and searched.'''
 
     def __init__(self):
         """init the class with empty list"""
@@ -44,11 +46,12 @@ class Notebook:
                 break
 
     def modify_tags(self, note_id, tags):
-        """modify the tags of the note given by the id"""
-
+        '''Find the note with the given id and change its
+        tags to the given value.'''
         for note in self.notes:
             if note.id == note_id:
                 note.tags = tags
+                break
 
     def _find_note(self, note_id):
         """find a note by its id and return it."""
@@ -61,17 +64,12 @@ class Notebook:
     def modify_memo(self, note_id, memo):
         '''Find the note with the given id and change its
         memo to the given value.'''
-        note = self._find_note(note_id)
-        if note:
-            note.memo = memo
-            return True
-        return False
+        self._find_note(note_id).memo = memo
 
     def search(self, filter):
         """search for the filter umong all the notes"""
 
-        return [note for note in self.notes if
-                note.match(filter)]
+        return [note for note in self.notes if note.match(filter)]
 
 
 if __name__ == '__main__':
