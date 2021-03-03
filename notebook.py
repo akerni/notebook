@@ -72,5 +72,15 @@ class Notebook:
         return [note for note in self.notes if note.match(filter)]
 
 
+#if __name__ == '__main__':
+#    print(f'{__name__} is not a script.')
 if __name__ == '__main__':
-    print(f'{__name__} is not a script.')
+    # if place here method .run(), we will see what "self" parameter is
+    menu = Menu() # .run()
+
+    # object "menu" is an instance of Menu class
+    print(isinstance(menu, Menu))
+
+    # class Menu methods and attributes
+    print(dir(Menu))    
+    
